@@ -4,7 +4,6 @@ from ball import  Ball
 from scoreboard import Scoreboard
 
 
-
 screen = Screen()
 screen.setup(width= 800, height= 600)
 screen.bgcolor("black")
@@ -15,51 +14,46 @@ screen.listen()
 paddle = Paddle((350, 0))
 paddle_2 = Paddle((-350, 0))
 ball = Ball()
-scoreboard_l = Scoreboard((-330, 270))
-scoreboard_r = Scoreboard((320, 270))
+scoreboard = Scoreboard()
 
-
-
+#Right player controls
 screen.onkey(paddle.paddle_up, "Up")
 screen.onkey(paddle.paddle_down, "Down")
 
+#Left player controls
 screen.onkey(paddle_2.paddle_up, "w")
 screen.onkey(paddle_2.paddle_down, "s")
 
 game_is_on = True
-
-score_r = 0
-score_l = 0
-
 while game_is_on:
     screen.update()
     ball.ball_move()
     round_is_on = True
 
-    if ball.ycor() > 285 or ball.ycor() < -285:
+    #The ball hits the top or bottom border
+    if ball.ycor() > 280 or ball.ycor() < -280:
         ball.ball_bounce()
 
-    if ball.xcor() > 325:
-        if ball.distance(paddle) < 40:
+    #The ball hits a paddle
+    if ball.xcor() > 340:
+        if ball.distance(paddle) < 50:
             ball.ball_paddle_bounce()
-    elif ball.xcor() < -325:
-        if ball.distance(paddle_2) < 40:
+            ball.increase_speed()
+    elif ball.xcor() < -340:
+        if ball.distance(paddle_2) < 50:
             ball.ball_paddle_bounce()
+            ball.increase_speed()
 
-    if ball.xcor() > 345:
-        scoreboard_l.score += 1
-        scoreboard_l.refresh()
-        ball.hideturtle()
-        ball = Ball()
+    #The paddle misses the ball
+    if ball.xcor() > 380:
+        scoreboard.l_score += 1
+        scoreboard.refresh()
+        ball.ball_reset()
 
-    elif ball.xcor() < -370:
-        scoreboard_r.score += 1
-        scoreboard_r.refresh()
-        ball.hideturtle()
-        ball = Ball()
-
-
-
+    if ball.xcor() < -380:
+        scoreboard.r_score += 1
+        scoreboard.refresh()
+        ball.ball_reset()
 
 screen.exitonclick()
 

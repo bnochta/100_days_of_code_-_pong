@@ -1,25 +1,24 @@
-
-
 from turtle import Turtle
 
 class Scoreboard(Turtle):
 
-    def __init__(self, pos):
+    def __init__(self):
         super().__init__()
-        self.score = 0
         self.penup()
         self.color("white")
-        self.speed("fastest")
         self.hideturtle()
-        self.goto(pos)
-        self.write(f"Score: {self.score}", move= False, align= "center", font=("Arial", 15, "normal"))
+        self.l_score = 0
+        self.r_score = 0
+        self.goto(x=-100, y=190)
+        self.write(f"{self.l_score}", align= "center", font=("Courier", 80, "bold"))
+        self.goto(x=100, y=190)
+        self.write(f"{self.r_score}", align= "center", font=("Courier", 80, "bold"))
+
 
     def refresh(self):
         self.clear()
-        self.write(f"Score: {self.score}", move=False, align="center", font=("Arial", 15, "normal"))
-
-    # def game_over(self):
-    #     self.clear()
-    #     self.goto(0,0)
-    #     self.write("GAME OVER", move=False, align="center", font=("Arial", 15, "normal"))
+        self.goto(x=-100, y=190)
+        self.write(f"{self.l_score}", align= "center", font=("Courier", 80, "bold"))
+        self.goto(x=100, y=190)
+        self.write(f"{self.r_score}", align= "center", font=("Courier", 80, "bold"))
 
