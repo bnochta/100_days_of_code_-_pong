@@ -55,5 +55,13 @@ while game_is_on:
         scoreboard.refresh()
         ball.ball_reset()
 
+    if scoreboard.l_score > 4:
+        game_is_on = False
+        scoreboard.game_end()
+
+    if scoreboard.r_score > 4:
+        game_is_on = False
+        scoreboard.game_end()
+
 screen.exitonclick()
 
